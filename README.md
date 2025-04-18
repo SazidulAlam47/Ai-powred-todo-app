@@ -1,27 +1,27 @@
-# AI-Powered Todo App
+# Ai-Powered Todo App
 
-An AI-powered Todo application built with React, Vite, TailwindCSS, and CopilotKit. This app helps you manage your tasks efficiently with a modern UI and AI integration.
+An Ai-powered Todo application built with React, Vite, TAilwindCSS, and CopilotKit. This app helps you manage your tasks efficiently with a modern UI and Ai integration.
 
 ## Features
 
 -   **Task Management**: Add, edit, and delete tasks.
--   **AI Integration**: Leverage AI to suggest task priorities and improvements.
--   **Responsive Design**: Built with TailwindCSS for a seamless experience across devices.
+-   **Ai Integration**: Leverage Ai to suggest task priorities and improvements.
+-   **Responsive Design**: Built with TAilwindCSS for a seamless experience across devices.
 -   **React Ecosystem**: Powered by React and React-DOM for a dynamic user interface.
 
 ## Tech Stack
 
 -   **Frontend**: React, React-DOM
 -   **Build Tool**: Vite
--   **Styling**: TailwindCSS
--   **AI Integration**: CopilotKit
+-   **Styling**: TAilwindCSS
+-   **Ai Integration**: CopilotKit
 
 ## Installation
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/SazidulAlam47/Ai-powred-todo-app.git
+    git clone https://github.com/SazidulAlam47/ai-powred-todo-app.git
     cd ai-powred-todo
     ```
 
