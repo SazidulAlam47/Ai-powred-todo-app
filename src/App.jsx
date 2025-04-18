@@ -119,7 +119,10 @@ const App = () => {
                     <p className="text-center mb-5">
                         Use the chat to add or remove todo with Ai.
                     </p>
-                    <form onSubmit={handleSubmit} className="flex mb-4">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="flex flex-col sm:flex-row mb-4 gap-2"
+                    >
                         <input
                             type="text"
                             className="flex-grow p-2 border border-gray-300 rounded-l focus:outline-none"
