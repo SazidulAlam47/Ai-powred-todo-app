@@ -9,6 +9,8 @@ const App = () => {
     const [task, setTask] = useState("");
     const [todos, setTodos] = useState([]);
 
+    console.log(todos);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         addTodo(task);
@@ -16,7 +18,10 @@ const App = () => {
 
     const addTodo = (task) => {
         if (task.trim()) {
-            const newTodos = [...todos, { id: Date.now(), text: task }];
+            const newTodos = [
+                ...todos,
+                { id: Date.now(), text: task, completed: false },
+            ];
             setTodos(newTodos);
             setTask("");
         }
@@ -24,6 +29,13 @@ const App = () => {
 
     const deleteTodo = (id) => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(updatedTodos);
+    };
+
+    const completeTodo = (id) => {
+        const updatedTodos = todos.map((todo) =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
         setTodos(updatedTodos);
     };
 
@@ -99,6 +111,62 @@ const App = () => {
         },
     });
 
+    useCopilotAction({
+        name: "completeTodoItem",
+        description:
+            "Mark a todo item as completed or incomplete by ID, text, serial number, or keyword in text",
+        parameters: [
+            {
+                name: "id",
+                type: "number",
+                description:
+                    "The ID of the todo item to toggle completion (optional)",
+                required: false,
+            },
+            {
+                name: "text",
+                type: "string",
+                description:
+                    "The exact text of the todo item to toggle completion (optional)",
+                required: false,
+            },
+            {
+                name: "index",
+                type: "number",
+                description:
+                    "The serial number (1-based) of the todo item to toggle completion (optional)",
+                required: false,
+            },
+            {
+                name: "contains",
+                type: "string",
+                description:
+                    "Toggle completion for any todo that contains this text (case-insensitive, optional)",
+                required: false,
+            },
+        ],
+        handler: async ({ id, text, index, contains }) => {
+            if (id) {
+                completeTodo(id);
+            } else if (text) {
+                const todo = todos.find(
+                    (t) => t.text.toLowerCase() === text.toLowerCase()
+                );
+                if (todo) {
+                    completeTodo(todo.id);
+                }
+            } else if (index && index > 0 && index <= todos.length) {
+                const todo = todos[index - 1];
+                completeTodo(todo.id);
+            } else if (contains) {
+                const matchingTodos = todos.filter((t) =>
+                    t.text.toLowerCase().includes(contains.toLowerCase())
+                );
+                matchingTodos.forEach((t) => completeTodo(t.id));
+            }
+        },
+    });
+
     return (
         <div>
             <CopilotPopup
@@ -143,6 +211,7 @@ const App = () => {
                                 key={todo.id}
                                 todo={todo}
                                 onDelete={deleteTodo}
+                                onToggle={completeTodo}
                             />
                         ))}
                     </ul>
